@@ -1,194 +1,409 @@
-# 🏛️ Anexo Técnico: Sistema Desacoplado de Gestión Documental con IA
+# 🏛️ Material Complementario (Anexo Técnico)
+
+# Innovación pública mediante IA generativa: arquitecturas desacopladas para la gestión documental territorial
 
 ![Node.js](https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white)
 ![Groq](https://img.shields.io/badge/Groq_LPU-F26522?style=for-the-badge&logo=groq&logoColor=white)
 ![Llama 3.3](https://img.shields.io/badge/Llama_3.3_8B-0467DF?style=for-the-badge&logo=meta&logoColor=white)
 ![Power Automate](https://img.shields.io/badge/Power_Automate-0078D4?style=for-the-badge&logo=powerautomate&logoColor=white)
 
-> **Nota Académica e Institucional:** Este repositorio constituye el Anexo Técnico del artículo académico titulado **Innovación pública mediante IA generativa: Arquitecturas desacopladas para la gestión documental territorial**. Por políticas de ciberseguridad, protección de datos (Ley 1581) y reserva del sumario institucional de la [ENTIDAD ANONIMIZADA], el código fuente presentado ha sido **sanitizado**. Las credenciales, *API Keys*, URLs de producción y datos de funcionarios han sido reemplazados por variables de entorno y datos ficticios.
+## Nota metodológica
+
+El presente documento constituye el **material complementario (anexo técnico)** asociado al artículo *Innovación pública mediante IA generativa: arquitecturas desacopladas para la gestión documental territorial*. Su propósito es proporcionar evidencia técnica adicional que respalde el diseño, implementación y validación del artefacto desarrollado en la investigación.
+
+De acuerdo con los principios de transparencia y trazabilidad propios de la investigación basada en diseño (*Design Science Research*), este material complementa la información contenida en el manuscrito mediante diagramas arquitectónicos, evidencias visuales de la solución implementada, descripciones de los componentes tecnológicos, fragmentos representativos de configuración y resultados de validación funcional. Su finalidad no es sustituir la explicación metodológica o conceptual del artículo principal, sino facilitar la comprensión de aquellos elementos técnicos cuya descripción detallada excede el alcance habitual de una publicación científica.
+
+Con el fin de proteger la seguridad de la infraestructura tecnológica utilizada durante la implementación y garantizar el cumplimiento de las disposiciones aplicables en materia de protección de datos, gestión documental y ciberseguridad institucional, el material presentado ha sido sanitizado. En consecuencia, se han eliminado o anonimizado credenciales, direcciones de infraestructura, identificadores organizacionales, datos personales y componentes sensibles del código fuente. Los ejemplos incluidos conservan la lógica funcional del artefacto y permiten comprender su operación sin comprometer activos de información de la entidad.
+
+El material complementario se encuentra organizado en cinco apartados:
+
+1. **Arquitectura general del artefacto y flujo de datos.**
+2. **Evidencias de interacción y captura documental.**
+3. **Evidencia técnica del microservicio de integración y procesamiento semántico.**
+4. **Visualización y explotación analítica de resultados.**
+5. **Evidencias de validación funcional del artefacto.**
+
+Cada una de estas secciones se encuentra vinculada explícitamente con los apartados correspondientes del manuscrito, permitiendo establecer una relación directa entre las decisiones de diseño, los mecanismos de implementación y los resultados obtenidos durante la evaluación del sistema.
 
 ---
 
-## 1. Arquitectura del Sistema (Diagrama de Flujo)
+# 1. Arquitectura general del artefacto
 
-El siguiente diagrama detalla la orquestación completa. Se destaca cómo el entorno de Microsoft 365 actúa como capa de persistencia y visualización, mientras que el procesamiento cognitivo se delega a una infraestructura externa de alto rendimiento.
+La solución propuesta se implementó mediante una arquitectura desacoplada orientada al procesamiento automatizado de documentos administrativos. El diseño distribuye las responsabilidades funcionales entre diferentes capas especializadas, permitiendo separar la captura documental, la integración, el procesamiento semántico y la explotación analítica de los resultados.
+
+La arquitectura se encuentra compuesta por cinco niveles funcionales:
+
+## 1.1. Capa de captura y orquestación institucional
+
+Esta capa se apoya en el ecosistema Microsoft 365 y está integrada por Power Apps, Power Automate y SharePoint. Su función consiste en capturar los documentos suministrados por los usuarios autorizados, iniciar el flujo documental y gestionar el almacenamiento institucional de la información procesada.
+
+## 1.2. Capa de interoperabilidad
+
+Corresponde al mecanismo mediante el cual la información estructurada es transferida desde Microsoft 365 hacia servicios especializados mediante solicitudes HTTP. Esta capa actúa como interfaz de intercambio entre el entorno institucional y los componentes externos de procesamiento.
+
+## 1.3. Capa de integración y control lógico
+
+Implementada mediante un microservicio desarrollado en Node.js, esta capa verifica la integridad de las solicitudes recibidas, valida la estructura de los datos y prepara las instrucciones que serán enviadas al modelo fundacional utilizado para el análisis documental.
+
+## 1.4. Capa de procesamiento semántico
+
+Esta capa concentra las funciones de inferencia asociadas al procesamiento del lenguaje natural. Su propósito consiste en transformar el contenido documental en información estructurada, generando resúmenes ejecutivos y metadatos reutilizables dentro del flujo institucional.
+
+## 1.5. Capa de persistencia y explotación analítica
+
+Finalmente, los resultados obtenidos son reincorporados a los repositorios institucionales para su almacenamiento, consulta y utilización posterior en procesos de recuperación documental y análisis de información.
+
+La Figura A1 presenta la representación general de la arquitectura implementada.
+
+## Figura A1. Arquitectura general del artefacto
 
 ```mermaid
 graph TD
-    subgraph "Capa de Orquestación y Persistencia (Microsoft 365)"
-    A[Power Apps: Interfaz y Captura] --> B[Power Automate: Orquestador Central]
-    B --> H[(SharePoint: Registro y Almacenamiento)]
-    end
 
-    B -- "1. Petición HTTP (PDF + Metadata)" --> C
+A[Power Apps]
+--> B[Power Automate]
 
-    subgraph "Capa de Integración y Lógica (Middleware en Node.js)"
-    C[Endpoint API REST] --> D[Knor: Validación de Esquema JSON]
-    C --> E[Inyección de Prompt Sistémico]
-    end
+B --> C[API REST]
 
-    subgraph "Capa Cognitiva de Alta Velocidad"
-    D --> F[Groq API: Motor de Inferencia]
-    E --> F
-    F --> G[Llama 3.3 8B: Generación de Resumen y Tags]
-    end
+C --> D[Validación estructural]
+C --> E[Parametrización del modelo]
 
-    G -- "Respuesta Estructurada" --> C
-    C -- "2. HTTP Response (JSON con resultados)" --> B
-    B -- "3. Actualización de Registro: Resumen y Palabras Clave" --> H
+D --> F[Servicio de inferencia]
+E --> F
 
+F --> G[Generación de resumen y metadatos]
+
+G --> C
+
+C --> B
+
+B --> H[SharePoint]
+
+H --> I[Visualización y analítica]
 ```
 
-## 2. Manual de Usuario (Guía Visual de Operación)
+La arquitectura fue concebida para minimizar las dependencias entre componentes y facilitar la incorporación de servicios especializados sin modificar los entornos institucionales preexistentes. Esta propiedad permite mantener la gobernanza documental dentro del ecosistema corporativo, mientras que las capacidades de procesamiento semántico operan en capas independientes y desacopladas.
 
-La interfaz de usuario fue diseñada bajo el principio de **abstracción arquitectónica**. El funcionario de la [ENTIDAD ANONIMIZADA] no interactúa con líneas de código, ni percibe el enrutamiento de datos hacia servidores externos; todo el ciclo de vida del documento ocurre dentro del entorno seguro y familiar de Power Apps y Microsoft 365.
+# 2. Evidencias de interacción y captura documental
 
-### 2.1. Interfaz de Captura y Validación Documental
-El sistema actúa como el primer anillo de seguridad. La interfaz valida en tiempo real la integridad de la carga, restringiendo la extensión de los archivos exclusivamente a formato `.pdf` y garantizando que se procese un único documento por transacción para no saturar la ventana de contexto del modelo de inteligencia artificial.
+La capa de interacción constituye el punto de entrada del artefacto y concentra las funciones de captura documental, validación preliminar y visualización de resultados. Su diseño se orientó a mantener toda la experiencia de uso dentro del entorno institucional de Microsoft 365, evitando que los usuarios debieran interactuar directamente con componentes externos o servicios especializados de procesamiento semántico.
 
-![Pantalla de Captura y Validación](docs/img/01-captura-validacion.png)
+Las evidencias visuales presentadas en esta sección documentan los principales componentes de interacción incorporados al sistema y complementan la descripción desarrollada en las subsecciones 4.2 y 4.3 del manuscrito.
 
-### 2.2. Visualización de Resultados en Tiempo Real
-Una vez el usuario autorizado envía el acta, el sistema entra en un estado de procesamiento. En cuestión de segundos, la interfaz consulta el registro actualizado en SharePoint y renderiza en pantalla el **Resumen Ejecutivo** y las **Palabras Clave** generadas semánticamente por Llama 3.3, permitiendo al funcionario validar la extracción cognitiva inmediatamente.
+---
 
-![Visualización de Resultados](docs/img/02-resultados-ia.png)
+## 2.1. Captura documental y validación preliminar
 
-### 2.3. Integración de Power Automate a través de HTTP Request
-Esta integración de _Power Platform_ con el _middleware_ externo, permite consolidar la eficiencia en el uso de recursos, al permitir que dicha solicitud sea centralizada a través de una única cuenta _Premiun_ (efecto _funnel_), en vez de agotar créditos con varias cuentas que usen instrumentos nativos para buscar el mismo resultado.
+La interfaz de captura fue desarrollada en Power Apps y actúa como la primera capa de control del flujo documental. Su propósito consiste en recibir los documentos proporcionados por los usuarios autorizados y verificar el cumplimiento de las condiciones mínimas necesarias para su procesamiento posterior.
 
-![integración entre Power Automate y HTTP Request](docs/img/03-comparación-arquitecturas.png)
+Las validaciones implementadas incluyen:
 
-### 2.4. Escenarios en el flujo de ejecución de Power Automate
-La velocidad de respuesta en la entraga del resultado final, está asociado a las condiciones en las que se integran la solicitud del flujo (HTTP Request), el motor de inferencia en Groq y el servicio ConsoleCron. Cada solicitud en Power Automate se ejecuta en dos partes consecutivas, la primera envía la solicitud y la segunda recibe el resultado para disponerlo en el repositorio de SharePoint. Los flujos 1 al 4, evidencian el par de corridas (1-2 y 3-4) en los que la primera solicitud se tarda algunos segundos (0:55 y 2:11) como consecuencia del arranque en frío dado que ConsoleCron no estaba manteniendo el motor de inferencia en alerta permanente. Las ejecuciones 5 a 8, evidencian dos pares de corridas en donde las demoras son significativamente mínimas en la primera solicitud (4 segundos ambas) dado que el motor de inferencia ha sido encendido previamente en la corrida anterior. La ejecución 9, vuelve a tener una latencia alta (34 segundos), debido a que, por desuso, el motor de inferencia se ha apagado nuevamente. Finalmente, la ejecución 11, a pesar de estar alejada —en tiempo— de la anterior, se ejecuta en sólo 4 segundos, dado que, para esta corrida, ConsoleCron está manteniendo el motor de inferencia en alerta constante (encendido).
+- Restricción del procesamiento a un único documento por transacción.
+- Verificación del formato PDF como formato documental admitido.
+- Control de acceso mediante los mecanismos de autenticación del entorno institucional.
+- Validación preliminar de la información requerida para iniciar el flujo automatizado.
 
-![Escenarios en el flujo](docs/img/04-escenarios-flujos.png)
+Estas restricciones permiten reducir inconsistencias en los datos de entrada y mejorar la estabilidad del procesamiento posterior.
 
-## 3. Fragmentos de Código Clave (Middleware en Node.js)
+### Figura A2. Interfaz de captura y validación documental
 
-A continuación, se exponen los componentes críticos desarrollados en el microservicio (alojado y ejecutado externamente) que garantizan la integridad de los datos y el procesamiento cognitivo mediante el modelo fundacional Llama 3.3 (8B). Por motivos de ciberseguridad, **el código ha sido sanitizado** y las credenciales se manejan estrictamente a través de variables de entorno (`process.env`).
+![Pantalla de captura y validación](docs/img/01-captura-validacion.png)
 
-### 3.1. Validación Estricta con Librería Knor
-Para evitar "alucinaciones estructurales" o el procesamiento de cargas de datos corruptas desde Microsoft 365, se implementó la librería `knor` en el endpoint de recepción. Esto garantiza que el JSON entrante cumpla con un esquema riguroso antes de consumir recursos de inferencia.
+---
+
+## 2.2. Visualización de resultados documentales
+
+Una vez completado el procesamiento documental, la información generada por la arquitectura retorna al entorno institucional y es presentada al usuario mediante la propia interfaz de Power Apps.
+
+La solución permite visualizar de manera inmediata:
+
+- El resumen ejecutivo generado durante el procesamiento.
+- Las palabras clave identificadas por el sistema.
+- La información asociada al documento procesado.
+- El estado actualizado del registro documental.
+
+Esta estrategia permite mantener la experiencia de interacción dentro de un único entorno de trabajo y evita que los usuarios deban consultar sistemas externos para acceder a los resultados.
+
+### Figura A3. Visualización de resultados estructurados
+
+![Visualización de resultados](docs/img/02-resultados-ia.png)
+
+---
+
+## 2.3. Integración entre Power Automate y servicios HTTP
+
+La interoperabilidad entre la infraestructura institucional y los componentes especializados de procesamiento se implementó mediante flujos automatizados de Power Automate y solicitudes HTTP estructuradas.
+
+Esta capa cumple una función de coordinación entre los distintos componentes del artefacto y permite:
+
+- Consolidar la información documental capturada.
+- Preparar los metadatos requeridos para el procesamiento.
+- Transferir la información mediante objetos JSON estructurados.
+- Recibir e incorporar las respuestas generadas por el sistema.
+
+La arquitectura resultante facilita la integración de servicios especializados sin requerir modificaciones sustanciales en los sistemas institucionales existentes.
+
+### Figura A4. Integración entre Power Automate y servicios HTTP
+
+![Integración entre Power Automate y HTTP Request](docs/img/03-comparación-arquitecturas.png)
+
+---
+
+## 2.4. Escenarios operativos del flujo de integración
+
+Durante las fases de validación se observaron diferentes comportamientos asociados al estado operativo del entorno de ejecución utilizado por el microservicio de integración.
+
+Las evidencias presentadas a continuación ilustran escenarios representativos de ejecución del flujo documental bajo distintas condiciones operativas. En algunos casos se identificaron incrementos temporales en los tiempos de respuesta asociados a fenómenos de activación del entorno de ejecución (*Cold Start*), mientras que en otros escenarios la disponibilidad previa del servicio permitió respuestas más rápidas.
+
+Estos registros deben interpretarse como ejemplos ilustrativos del comportamiento observado durante la validación funcional y no como mediciones experimentales controladas de rendimiento.
+
+La estrategia implementada para mitigar este comportamiento se describe posteriormente en la Sección 3.4 del presente anexo y en la subsección 4.5 del manuscrito.
+
+### Figura A5. Escenarios operativos del flujo de ejecución
+
+![Escenarios del flujo](docs/img/04-escenarios-flujos.png)
+
+# 3. Evidencia técnica del microservicio de integración y procesamiento semántico
+
+La presente sección documenta los componentes técnicos más relevantes del microservicio de integración utilizado durante la implementación del artefacto. Su objetivo consiste en proporcionar evidencia complementaria de los mecanismos empleados para validar la información intercambiada entre sistemas, parametrizar el modelo fundacional y garantizar la consistencia estructural de los resultados generados.
+
+Los fragmentos de código incluidos han sido sanitizados con el fin de proteger elementos sensibles de infraestructura y seguridad. En consecuencia, los ejemplos presentados reproducen la lógica funcional del sistema sin exponer credenciales, identificadores institucionales o componentes críticos asociados al entorno de producción.
+
+---
+
+## 3.1. Validación estructural de datos mediante Knor
+
+Antes de iniciar cualquier proceso de inferencia, el microservicio verifica que la información procedente del flujo institucional cumpla con una estructura de datos previamente definida. Esta validación tiene como propósito preservar la integridad de la transacción y evitar el procesamiento de solicitudes incompletas o inconsistentes.
+
+Para ello se implementó la librería **Knor**, utilizada como mecanismo de validación de esquemas JSON en el punto de entrada del servicio.
+
+### Fragmento representativo de validación estructural
 
 ```javascript
 const { k } = require('knor');
 
-// Definición del esquema estricto esperado desde Power Automate
 const actaSchema = k.object({
     idActa: k.string().required(),
-    fechaComite: k.string().required(), // Formato ISO 8601
-    textoExtraido: k.string().min(100).required(), // Previene el envío de PDFs en blanco
+    fechaComite: k.string().required(),
+    textoExtraido: k.string().min(100).required(),
     usuarioRemitente: k.string().email()
 });
 
-// Middleware de validación en la ruta POST
 function validarPayload(req, res, next) {
     const validacion = actaSchema.validate(req.body);
+
     if (!validacion.isValid) {
-        console.warn(`Intento de carga inválida por: ${req.body.usuarioRemitente || 'Desconocido'}`);
-        return res.status(400).json({ 
-            error: "Estructura de datos inválida. Transacción abortada.", 
-            detalles: validacion.errors 
+        return res.status(400).json({
+            error: "Estructura de datos inválida",
+            detalles: validacion.errors
         });
     }
+
     next();
 }
 ```
 
-### 3.2. Prompt Engineering Sistémico
-El comportamiento del modelo de inteligencia artificial se controla mediante instrucciones precisas (System Prompt) que enmarcan su rol institucional. Esta parametrización es vital para adaptar un modelo de propósito general a las rigurosidades del derecho administrativo público.
+La validación estructural permite asegurar la compatibilidad entre la información enviada desde Power Automate y los requisitos definidos para el procesamiento documental posterior.
+
+---
+
+## 3.2. Parametrización mediante prompt engineering
+
+El comportamiento del modelo fundacional fue controlado mediante instrucciones explícitas orientadas al dominio documental de la administración pública.
+
+Estas instrucciones fueron implementadas mediante un *system prompt* que define:
+
+- El rol funcional del modelo.
+- Los productos esperados de la inferencia.
+- Las restricciones de formato.
+- La estructura de la respuesta devuelta al sistema.
+
+### Fragmento representativo del prompt sistémico
 
 ```javascript
 const construirPromptSistemico = () => {
     return `
-    Actúas como un experto analista documental de la [ENTIDAD ANONIMIZADA] 
-    de la administración pública [PAÍS ANONIMIZADO]. Tu objetivo es analizar el texto extraído 
-    de actas de comité y extraer información estratégica con precisión quirúrgica.
-    
-    Reglas de extracción obligatorias:
-    1. Redacta un 'resumenEjecutivo' de máximo 150 palabras. Mantén un tono formal, 
-       objetivo y elimina el ruido conversacional.
-    2. Identifica los compromisos o decisiones principales y menciónalos explícitamente.
-    3. Extrae un arreglo de 'palabrasClave' (máximo 5 términos técnicos) relevantes 
-       para la indexación en repositorios históricos.
-    
-    Restricción de Formato: Debes responder ÚNICA y EXCLUSIVAMENTE con un objeto JSON válido.
+    Actúas como un analista documental institucional.
+
+    Reglas obligatorias:
+
+    1. Genera un resumenEjecutivo.
+    2. Identifica compromisos relevantes.
+    3. Extrae palabrasClave para indexación documental.
+
+    Restricción:
+    Debes responder exclusivamente mediante un objeto JSON válido.
     `;
 };
 ```
-### 3.3. Petición HTTP a la API de Groq
-El núcleo de la extrapolación de la carga cognitiva. Se establece una conexión asíncrona segura con la API de Groq, forzando la salida del modelo Llama 3.3 a un formato JSON estructurado que luego será devuelto a Power Automate.
+
+La parametrización utilizada tuvo como finalidad favorecer la consistencia estructural de la salida y facilitar su posterior integración con los repositorios documentales institucionales.
+
+---
+
+## 3.3. Integración con el servicio de inferencia
+
+Una vez validada la estructura de entrada y construido el contexto de procesamiento, el microservicio establece una comunicación asíncrona con el servicio de inferencia encargado de ejecutar el análisis semántico del documento.
+
+La interacción se realiza mediante solicitudes HTTP estructuradas que incluyen:
+
+- El contenido documental.
+- Las instrucciones del sistema.
+- Los parámetros de configuración del modelo.
+- Los mecanismos de control de formato de respuesta.
+
+### Fragmento representativo de integración
 
 ```javascript
-const procesarConLlama = async (textoActa) => {
-    const url = '[https://api.groq.com/openai/v1/chat/completions](https://api.groq.com/openai/v1/chat/completions)';
-    
-    // Configuración del Payload para el modelo Open Source
-    const payload = {
-        model: "llama-3.3-8b-versatile",
-        messages: [
-            { role: "system", content: construirPromptSistemico() },
-            { role: "user", content: `Analiza el siguiente texto del acta: ${textoActa}` }
-        ],
-        temperature: 0.1, // Temperatura baja (0.1) para maximizar la determinancia y evitar alucinaciones
-        response_format: { type: "json_object" } // Forzar estructura para SharePoint
-    };
-
-    try {
-        const response = await fetch(url, {
-            method: 'POST',
-            headers: {
-                'Authorization': `Bearer ${process.env.GROQ_API_KEY}`, // Sanitizado por seguridad
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(payload)
-        });
-
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
+const payload = {
+    model: "MODELO_UTILIZADO",
+    messages: [
+        {
+            role: "system",
+            content: construirPromptSistemico()
+        },
+        {
+            role: "user",
+            content: textoActa
         }
-
-        const data = await response.json();
-        return JSON.parse(data.choices[0].message.content); // Retorno del JSON limpio
-        
-    } catch (error) {
-        console.error("[CRITICAL] Error en inferencia LPU Groq:", error);
-        throw new Error("Fallo en la comunicación con el motor cognitivo.");
+    ],
+    temperature: 0.1,
+    response_format: {
+        type: "json_object"
     }
 };
 ```
-### 3.4. Estrategia de Disponibilidad: Mitigación del "Cold Start"
-Uno de los mayores retos en arquitecturas *Serverless* (sin servidor) es la latencia inicial cuando el contenedor del microservicio entra en estado de hibernación por inactividad (*Cold Start*). Para la administración pública, un retraso de 15 a 30 segundos en la primera consulta del día genera una mala experiencia de usuario.
 
-Para solucionar esto sin incurrir en costos de "concurrencia provisionada", se integró **ConsoleCron** como estrategia *Keep-Alive*.
+La utilización de una temperatura reducida y de un formato de respuesta estructurado tuvo como objetivo favorecer la estabilidad operativa del flujo y garantizar la compatibilidad de los resultados con las etapas posteriores del sistema.
 
-**Configuración del Ping Automatizado:**
-Se programó una tarea (Cron Job) que realiza una petición de tipo `HEAD` o un `GET` de bajísimo peso al servidor cada 10 minutos. Esto mantiene el entorno de ejecución Node.js permanentemente "caliente" en la memoria del servidor.
+---
 
-```yaml
-# Configuración del Job en ConsoleCron (Formato de expresión Cron)
-Nombre del Job: Keep-Alive-Middleware-Envigado
-Frecuencia: */10 * * * * # Se ejecuta cada 10 minutos
-Endpoint URL: [https://api-middleware-envigado.com/ping](https://api-middleware-envigado.com/ping)
-Método HTTP: GET
+## 3.4. Estrategia de disponibilidad y mitigación del fenómeno Cold Start
+
+Durante las pruebas de validación se identificó la existencia de incrementos temporales en los tiempos de respuesta cuando el entorno de ejecución permanecía inactivo durante periodos prolongados.
+
+Con el fin de mitigar este comportamiento, se implementó una estrategia de disponibilidad basada en activaciones periódicas del servicio mediante **ConsoleCron**.
+
+La lógica de funcionamiento consiste en realizar solicitudes de bajo impacto al entorno de ejecución a intervalos regulares para evitar estados prolongados de suspensión.
+
+### Ejemplo conceptual de configuración
+
+```text
+Nombre del Job:
+Keep-Alive-Middleware
+
+Frecuencia:
+*/10 * * * *
+
+Método:
+GET
+
+Endpoint:
+https://[ENDPOINT_SANITIZADO]/ping
 ```
 
-## 4. Visualización y analítica
-El agrupamiento esquematizado de la información favorece la consulta de resultados históricos, especialmente a la hora de asignar filtros de búsqueda que permiten la extracción de datos puntuales, sin importar que tan antiguos sean y sin la necesidad de aludir a la memoria humana para llegar a ellos. Este panel de visualización ubica la sección de filtros por categorías especiales y tiempo que favorecen la búsqueda histórica y relevante de actas o metadatos (resúmenes y palabras clave) almacenados en los repositorios. El **recuadro 1** contiene los filtros que permiten la búsqueda histórica de la reunión con su respectiva acta, bien sea por el ID, algún texto específico en el resumen o las palabras clave, la dependencia, el equipo de trabajo o el nombre del funcionario responsable de la reunión. El **recuadro 2** muestra el listado de asistencia de los participantes a la reunión muestra el listado de asistencia a la reunión. El **recuadro 3** deja ver el resumen y las palabras clave extraídas generadas por el modelo Llama 3.3 a través del motor de inferencia Groq. El **recuadro 4** permite visualizar el documento original almacenado en el repositorio de datos en SharePoint de Microsoft 365.
+Esta estrategia no participa directamente en el procesamiento documental ni modifica la lógica de inferencia. Su propósito es exclusivamente operativo y está orientado a mejorar la continuidad del servicio durante periodos de baja utilización.
 
-![Visualización de los datos para la toma de decisiones](docs/img/05-visualización-BI.png)
+# 4. Visualización y explotación analítica de resultados
 
-## 5. Evidencias de Pruebas de Validación (QA) y Rendimiento
+La fase final del artefacto se orienta a la persistencia, consulta y explotación de la información generada durante el procesamiento documental. Una vez completada la inferencia, los resultados estructurados son reincorporados a los repositorios institucionales para su almacenamiento y posterior utilización en procesos de recuperación documental y análisis de información.
 
-Para certificar la viabilidad del sistema antes de su despliegue en el entorno de producción de la Secretaría de Desarrollo Económico, se ejecutó una batería de pruebas de estrés, validación lógica y rendimiento. 
+Esta capa complementa la funcionalidad del sistema al permitir que los productos generados durante la inferencia —particularmente los resúmenes ejecutivos y las palabras clave— puedan ser reutilizados en actividades de consulta, seguimiento documental y análisis institucional.
 
-### 5.1. Matriz de Casos de Prueba (Edge Cases)
-A continuación, se documentan los escenarios críticos evaluados para garantizar la tolerancia a fallos del ecosistema:
+La evidencia visual presentada a continuación ilustra la manera en que los resultados procesados son integrados en un entorno de consulta diseñado para facilitar el acceso a la información almacenada en los repositorios institucionales.
 
-| ID | Componente | Descripción del Escenario | Resultado Esperado | Resultado Obtenido | Estado |
-| :---: | :--- | :--- | :--- | :--- | :---: |
-| **QA-01** | Power Apps | Carga de archivo con extensión no soportada (`.docx`, `.jpg`). | La interfaz bloquea el botón de envío y alerta al usuario. | Botón inhabilitado. Alerta visual generada correctamente. | ✅ Pass |
-| **QA-02** | Middleware (Knor) | Petición HTTP desde Power Automate con un payload incompleto (sin `textoExtraido`). | Knor intercepta y rechaza con HTTP 400 (Bad Request). | API devuelve HTTP 400. Power Automate registra el error y notifica. | ✅ Pass |
-| **QA-03** | Motor IA (Groq) | Inferencia de un acta extensa (aprox. 5,000 palabras) evaluando tiempos de respuesta. | Retorno del JSON estructurado en un tiempo < 5 segundos. | Respuesta procesada en 3.2s con formato JSON perfecto. | ✅ Pass |
-| **QA-04** | Seguridad (API) | Intento de consumo del *endpoint* externo sin el Token de Autorización válido. | El servidor rechaza la conexión con HTTP 401 (Unauthorized). | Conexión denegada. Protección del microservicio confirmada. | ✅ Pass |
+---
+
+## Figura A6. Entorno de visualización y explotación analítica
+
+![Visualización de los datos para apoyo a la gestión documental](docs/img/05-visualización-BI.png)
+
+---
+
+## 4.1. Organización de la información consultable
+
+El entorno de visualización integra la información documental original con los metadatos generados durante el procesamiento semántico. Esta organización permite consultar simultáneamente:
+
+- El documento almacenado en el repositorio institucional.
+- Los resúmenes ejecutivos generados por el sistema.
+- Las palabras clave asociadas al contenido documental.
+- Los metadatos de identificación y clasificación del registro.
+
+La integración de estos elementos favorece la consulta de información histórica y permite mantener la trazabilidad entre los documentos originales y los resultados derivados del procesamiento automatizado.
+
+---
+
+## 4.2. Mecanismos de búsqueda y recuperación de información
+
+Los metadatos generados por el sistema amplían las capacidades tradicionales de búsqueda documental al incorporar nuevas variables de consulta derivadas del análisis semántico.
+
+Entre los criterios de filtrado implementados se encuentran:
+
+- Identificador documental.
+- Texto contenido en los resúmenes ejecutivos.
+- Palabras clave generadas durante la inferencia.
+- Dependencia organizacional.
+- Responsable del registro documental.
+- Periodos temporales asociados a la documentación almacenada.
+
+Estos mecanismos permiten complementar las búsquedas tradicionales basadas exclusivamente en nombres de archivo o ubicaciones de almacenamiento.
+
+---
+
+## 4.3. Integración entre gestión documental y análisis de información
+
+La incorporación de resúmenes ejecutivos y palabras clave transforma los documentos administrativos en registros enriquecidos con información estructurada adicional.
+
+Desde una perspectiva funcional, esta capa permite aprovechar los resultados del procesamiento documental más allá de la lectura inicial del documento, facilitando procesos posteriores de consulta, recuperación y análisis institucional.
+
+La solución implementada mantiene la vinculación entre el documento original y los productos generados durante la inferencia, preservando la coherencia documental y favoreciendo la reutilización de la información dentro del ecosistema institucional.
+
+---
+
+## 4.4. Relación con el artefacto presentado en el manuscrito
+
+La información visualizada en este entorno corresponde a los resultados producidos por el flujo arquitectónico descrito en el artículo principal.
+
+En consecuencia:
+
+1. Los documentos son capturados y validados mediante la interfaz institucional.
+2. La información es procesada a través del flujo de integración y del microservicio especializado.
+3. El sistema genera resúmenes ejecutivos y palabras clave estructuradas.
+4. Los resultados retornan a los repositorios institucionales.
+5. La información enriquecida es puesta a disposición para consulta y análisis posterior.
+
+De esta forma, la capa de visualización y explotación analítica constituye la etapa final del ciclo de procesamiento documental implementado por el artefacto.
+
+# 5. Evidencias de validación funcional del artefacto
+
+La presente sección documenta las evidencias de validación funcional utilizadas durante la evaluación del artefacto. Su propósito consiste en proporcionar soporte empírico complementario a los resultados presentados en el manuscrito, describiendo los principales escenarios de prueba implementados, los mecanismos de control aplicados y los resultados generales observados durante la validación.
+
+La evaluación se desarrolló sobre un conjunto de documentos administrativos heterogéneos y tuvo como objetivo verificar la estabilidad operativa del flujo documental, la capacidad del sistema para completar las transacciones previstas y la consistencia estructural de la información generada.
+
+---
+
+## 5.1. Casos de prueba y validación funcional
+
+Como parte del proceso de evaluación se definieron escenarios de prueba orientados a validar los principales componentes de la arquitectura.
+
+Los casos considerados abarcaron:
+
+- Validación de restricciones en la interfaz de captura.
+- Integridad de la información intercambiada entre sistemas.
+- Comportamiento del microservicio frente a solicitudes inválidas.
+- Estabilidad del procesamiento documental.
+- Controles básicos de acceso a los servicios expuestos.
+
+La Tabla A1 resume los escenarios representativos utilizados durante las pruebas.
+
+### Tabla A1. Escenarios de validación funcional
+
+| ID | Componente | Escenario evaluado | Resultado esperado | Resultado observado | Estado |
+|----------|----------|----------|----------|----------|----------|
+| QA-01 | Interfaz de captura | Carga de archivo con formato no admitido | Bloqueo de la operación y notificación al usuario | Restricción aplicada correctamente | ✅ |
+| QA-02 | Validación estructural | Envío de solicitud con información incompleta | Rechazo de la transacción | Solicitud rechazada mediante validación estructural | ✅ |
+| QA-03 | Procesamiento documental | Documento extenso con contenido textual válido | Generación de respuesta estructurada | Procesamiento completado satisfactoriamente | ✅ |
+| QA-04 | Control de acceso | Solicitud sin credenciales válidas | Denegación de acceso al servicio | Acceso restringido correctamente | ✅ |
+
+
 
