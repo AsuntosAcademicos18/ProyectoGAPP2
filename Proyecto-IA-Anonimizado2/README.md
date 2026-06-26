@@ -381,6 +381,44 @@ La presente sección documenta las evidencias de validación funcional utilizada
 La evaluación se desarrolló sobre un conjunto de documentos administrativos heterogéneos y tuvo como objetivo verificar la estabilidad operativa del flujo documental, la capacidad del sistema para completar las transacciones previstas y la consistencia estructural de la información generada.
 
 ---
+## 5.1. Prueba de rendimiento y tolerancia a fallos
+
+Tabla X. Matriz de rendimiento y tolerancia a fallos del banco de pruebas documental (_N = 30_). La tabla presenta los documentos utilizados durante la validación funcional del artefacto, incluyendo tamaño del archivo, características físicas del soporte documental, tiempos de preprocesamiento, latencia transaccional extremo a extremo y resultado final de la generación automática del resumen. Los casos fallidos corresponden a documentos con limitaciones en la fase de captura y extracción óptica de texto, particularmente en soportes impresos sobre papel color beige o con contenido manuscrito.
+
+| ID | Nombre del archivo | Tamaño (Kb) | Característica física | Grupo | Hora de envío | Tiempo de preprocesamiento (ms) | Hora de recepción | Duración (ms) | Duración (s) | ¿Realizó resumen? |
+|----|-------------------|------------:|------------------------|--------|---------------|-------------------------------:|------------------|--------------:|-------------:|------------------|
+| 14 | 20230626 Acta 1 | 2.926 | Documento impreso en papel color beige | Acta | 16:15:34 | 271 | 16:15:37 | 2.729 | 2,73 | No |
+| 15 | 20240216 Acta 5 | 976 | Documento impreso en papel color beige escrito a mano | Acta | 16:26:35 | 174 | 16:26:37 | 1.826 | 1,83 | No |
+| 16 | 20240712 Acta 9 | 145 | Documento digitalizado | Acta | 16:37:51 | 115 | 16:37:53 | 1.885 | 1,89 | Sí |
+| 17 | 20241217 Acta 14 | 813 | Documento digitalizado | Acta | 16:38:28 | 363 | 16:38:31 | 2.637 | 2,64 | Sí |
+| 18 | Acta 07 | 677 | Documento impreso en papel color beige | Acta | 16:40:46 | 141 | 16:40:48 | 1.859 | 1,86 | No |
+| 19 | ACTA 1 | 1.320 | Documento digitalizado | Acta | 16:55:32 | 98 | 16:55:34 | 1.902 | 1,90 | Sí |
+| 20 | ACTA 4. | 1.173 | Documento digitalizado | Acta | 16:56:40 | 206 | 16:56:43 | 2.794 | 2,79 | Sí |
+| 21 | Acta 08 | 281 | Documento digitalizado | Acta | 17:59:14 | 99 | 17:59:15 | 901 | 0,90 | Sí |
+| 22 | Acta 14 | 461 | Documento digitalizado | Acta | 18:01:02 | 180 | 18:01:04 | 1.820 | 1,82 | Sí |
+| 23 | Acta Comité Interno PP Turismo Sept. 30 2024 | 1.370 | Documento digitalizado | Acta | 18:02:12 | 90 | 18:02:16 | 3.910 | 3,91 | Sí |
+| 24 | 3 CC-F-239 Solicitud de Adquisiciones - Rev. | 269 | Documento digitalizado | Legal | 18:04:56 | 105 | 18:04:59 | 2.895 | 2,90 | Sí |
+| 25 | 110-20261032 DLLO ECONÓMICO 1439 | 32 | Documento impreso en papel color blanco | Legal | 18:05:33 | 89 | 18:05:35 | 1.911 | 1,91 | Sí |
+| 26 | Cambio Supervisor Mayo 25 Zona 2. | 322 | Documento digitalizado | Legal | 18:07:01 | 124 | 18:07:03 | 1.876 | 1,88 | Sí |
+| 27 | CC-F-044 Designación Supervisor (1) (1) (9) | 135 | Documento digitalizado | Legal | 18:10:21 | 104 | 18:10:23 | 1.896 | 1,90 | Sí |
+| 28 | CC-F-194 Clausulado Anexo (Persona Jurídica) (2) (7) | 408 | Documento digitalizado | Legal | 18:23:28 | 82 | 18:23:31 | 2.918 | 2,92 | Sí |
+| 29 | Clausulado anexo convenios de asociación | 742 | Documento digitalizado | Legal | 18:24:43 | 121 | 18:24:46 | 2.879 | 2,88 | Sí |
+| 30 | CLAUSULADO | 454 | Documento digitalizado | Legal | 18:25:19 | 121 | 18:25:22 | 2.879 | 2,88 | Sí |
+| 31 | Inexistencia Inglés para el trabajo | 157 | Documento digitalizado | Legal | 18:26:36 | 86 | 18:26:37 | 914 | 0,91 | Sí |
+| 32 | INFORME 03-02 A 04-01 | 340 | Documento digitalizado | Legal | 18:27:40 | 143 | 18:27:43 | 2.857 | 2,86 | Sí |
+| 33 | INFORME DE SUPERVISIÓN ACTA 05 | 269 | Documento digitalizado | Legal | 18:28:58 | 136 | 18:29:01 | 2.864 | 2,86 | Sí |
+| 34 | Circular 20260000047 | 433 | Documento digitalizado | Variado | 21:04:32 | 220 | 21:04:33 | 780 | 0,78 | Sí |
+| 35 | CIRCULAR ELECCIÓN COMISIÓN DE PERSONAL-2026 | 523 | Documento digitalizado | Variado | 21:06:10 | 103 | 21:06:12 | 1.897 | 1,90 | Sí |
+| 36 | Decreto municipal número 20260000500 de marzo 27 de 2026 | 5.581 | Documento digitalizado | Variado | 21:09:22 | 106 | 21:09:26 | 3.894 | 3,89 | Sí |
+| 37 | Derecho de Petición | 157 | Documento digitalizado | Variado | 21:11:02 | 112 | 21:11:03 | 888 | 0,89 | Sí |
+| 38 | DocModeloInclusion_NOV2025 | 9.230 | Documento digitalizado | Variado | 21:12:13 | 118 | 21:12:18 | 4.882 | 4,88 | Sí |
+| 39 | IA para la productividad | 12.707 | Presentación gráfica digitalizada | Variado | 21:14:19 | 97 | 21:14:25 | 5.903 | 5,90 | Sí |
+| 40 | Informe SDE (3) | 1.493 | Documento digitalizado | Variado | 21:15:50 | 97 | 21:15:53 | 2.903 | 2,90 | Sí |
+| 41 | M S E CV ATS | 69 | Documento digitalizado | Variado | 21:17:19 | 97 | 21:17:20 | 903 | 0,90 | Sí |
+| 42 | REGLAMENTO DE PRESTACIÓN DE SERVICIOS (2) | 1.068 | Documento digitalizado | Variado | 08:23:19 | 176 | 08:23:22 | 2.824 | 2,82 | Sí |
+| 43 | Segundo_Auto_de_pruebas_T-11.443.237_anonimizado_100426 | 374 | Documento digitalizado | Variado | 08:24:33 | 96 | 08:24:36 | 2.904 | 2,90 | Sí |
+
+
 
 ## 5.1. Casos de prueba y validación funcional
 
