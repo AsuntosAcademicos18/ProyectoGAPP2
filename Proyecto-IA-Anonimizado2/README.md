@@ -418,7 +418,82 @@ Tabla X. Matriz de rendimiento y tolerancia a fallos del banco de pruebas docume
 | 42 | REGLAMENTO DE PRESTACIÓN DE SERVICIOS (2) | 1.068 | Documento digitalizado | Variado | 08:23:19 | 176 | 08:23:22 | 2.824 | 2,82 | Sí |
 | 43 | Segundo_Auto_de_pruebas_T-11.443.237_anonimizado_100426 | 374 | Documento digitalizado | Variado | 08:24:33 | 96 | 08:24:36 | 2.904 | 2,90 | Sí |
 
+## 5.2. Evaluación semántica del modelo Llamma 3.3
 
+### Tabla X. Evaluación semántica de resúmenes y palabras clave (muestra completa, N = 30)
+
+Incluye la totalidad de los documentos evaluados, incorporando aquellos casos donde el sistema no logró generar correctamente el resumen o las palabras clave como consecuencia de fallas previas en la fase de captura y extracción de texto.
+
+| Documento ID | Exactitud | Completitud | Claridad | Palabras clave | Utilidad institucional |
+|-------------|----------:|------------:|---------:|---------------:|----------------------:|
+| 22 | 5,0 | 5,0 | 5,0 | 5,0 | 5,0 |
+| 32 | 5,0 | 5,0 | 5,0 | 5,0 | 5,0 |
+| 42 | 5,0 | 5,0 | 5,0 | 5,0 | 5,0 |
+| 19 | 4,3 | 4,7 | 4,7 | 4,7 | 4,3 |
+| 16 | 5,0 | 5,0 | 5,0 | 5,0 | 5,0 |
+| 26 | 5,0 | 5,0 | 5,0 | 5,0 | 5,0 |
+| 36 | 5,0 | 5,0 | 5,0 | 5,0 | 5,0 |
+| 14 | 1,0 | 1,0 | 1,0 | 1,0 | 1,0 |
+| 24 | 5,0 | 5,0 | 5,0 | 5,0 | 5,0 |
+| 34 | 5,0 | 5,0 | 5,0 | 5,0 | 5,0 |
+| 29 | 4,7 | 5,0 | 5,0 | 5,0 | 4,7 |
+| 17 | 5,0 | 5,0 | 5,0 | 4,7 | 5,0 |
+| 27 | 4,0 | 4,0 | 4,0 | 4,7 | 4,0 |
+| 18 | 1,0 | 1,0 | 1,0 | 1,0 | 1,0 |
+| 28 | 5,0 | 5,0 | 5,0 | 5,0 | 5,0 |
+| 37 | 5,0 | 5,0 | 5,0 | 5,0 | 5,0 |
+| 38 | 5,0 | 5,0 | 5,0 | 5,0 | 5,0 |
+| 21 | 4,7 | 4,7 | 5,0 | 5,0 | 5,0 |
+| 31 | 5,0 | 5,0 | 5,0 | 5,0 | 5,0 |
+| 41 | 4,7 | 5,0 | 5,0 | 4,3 | 3,7 |
+| 39 | 4,3 | 4,0 | 4,3 | 4,3 | 4,3 |
+| 20 | 5,0 | 5,0 | 5,0 | 5,0 | 5,0 |
+| 30 | 5,0 | 5,0 | 5,0 | 5,0 | 5,0 |
+| 40 | 5,0 | 5,0 | 5,0 | 5,0 | 5,0 |
+| 15 | 1,3 | 1,0 | 1,0 | 1,7 | 2,3 |
+| 25 | 5,0 | 5,0 | 5,0 | 5,0 | 5,0 |
+| 35 | 5,0 | 5,0 | 5,0 | 5,0 | 5,0 |
+| 23 | 4,7 | 5,0 | 4,7 | 5,0 | 5,0 |
+| 33 | 4,7 | 4,7 | 4,7 | 4,7 | 5,0 |
+| 43 | 5,0 | 5,0 | 5,0 | 5,0 | 5,0 |
+| **Promedio general** | **4,5** | **4,5** | **4,5** | **4,5** | **4,5** |
+Nota. Resultados de la evaluación semántica realizada por diez funcionarios de la entidad mediante una escala Likert de cinco puntos. Cada documento fue valorado por tres evaluadores independientes. La tabla incluye la totalidad de la muestra, incorporando los documentos que no lograron completar satisfactoriamente el proceso de extracción y resumen debido a limitaciones en la fase de captura documental.
+
+### Tabla X. Evaluación semántica de resúmenes y palabras clave (muestra completa, N = 30)
+
+Excluye los documentos 14, 15 y 18, los cuales no generaron adecuadamente el resumen ni las palabras clave debido a fallas en la captura del contenido textual.
+
+| Documento ID | Exactitud | Completitud | Claridad | Palabras clave | Utilidad institucional |
+|-------------|----------:|------------:|---------:|---------------:|----------------------:|
+| 22 | 5,0 | 5,0 | 5,0 | 5,0 | 5,0 |
+| 32 | 5,0 | 5,0 | 5,0 | 5,0 | 5,0 |
+| 42 | 5,0 | 5,0 | 5,0 | 5,0 | 5,0 |
+| 19 | 4,3 | 4,7 | 4,7 | 4,7 | 4,3 |
+| 16 | 5,0 | 5,0 | 5,0 | 5,0 | 5,0 |
+| 26 | 5,0 | 5,0 | 5,0 | 5,0 | 5,0 |
+| 36 | 5,0 | 5,0 | 5,0 | 5,0 | 5,0 |
+| 24 | 5,0 | 5,0 | 5,0 | 5,0 | 5,0 |
+| 34 | 5,0 | 5,0 | 5,0 | 5,0 | 5,0 |
+| 29 | 4,7 | 5,0 | 5,0 | 5,0 | 4,7 |
+| 17 | 5,0 | 5,0 | 5,0 | 4,7 | 5,0 |
+| 27 | 4,0 | 4,0 | 4,0 | 4,7 | 4,0 |
+| 28 | 5,0 | 5,0 | 5,0 | 5,0 | 5,0 |
+| 37 | 5,0 | 5,0 | 5,0 | 5,0 | 5,0 |
+| 38 | 5,0 | 5,0 | 5,0 | 5,0 | 5,0 |
+| 21 | 4,7 | 4,7 | 5,0 | 5,0 | 5,0 |
+| 31 | 5,0 | 5,0 | 5,0 | 5,0 | 5,0 |
+| 41 | 4,7 | 5,0 | 5,0 | 4,3 | 3,7 |
+| 39 | 4,3 | 4,0 | 4,3 | 4,3 | 4,3 |
+| 20 | 5,0 | 5,0 | 5,0 | 5,0 | 5,0 |
+| 30 | 5,0 | 5,0 | 5,0 | 5,0 | 5,0 |
+| 40 | 5,0 | 5,0 | 5,0 | 5,0 | 5,0 |
+| 25 | 5,0 | 5,0 | 5,0 | 5,0 | 5,0 |
+| 35 | 5,0 | 5,0 | 5,0 | 5,0 | 5,0 |
+| 23 | 4,7 | 5,0 | 4,7 | 5,0 | 5,0 |
+| 33 | 4,7 | 4,7 | 4,7 | 4,7 | 5,0 |
+| 43 | 5,0 | 5,0 | 5,0 | 5,0 | 5,0 |
+| **Promedio general** | **4,9** | **4,9** | **4,9** | **4,9** | **4,9** |
+Nota. Resultados de la evaluación semántica considerando únicamente los documentos cuyo procesamiento fue exitoso. La eliminación de los casos fallidos permite aislar el desempeño del modelo de lenguaje de las limitaciones asociadas a la captura y extracción óptica del texto original. La valoración promedio de 4,9 sobre 5 indica una percepción altamente favorable de los usuarios respecto a la exactitud, completitud, claridad, pertinencia de las palabras clave y utilidad institucional de los resúmenes generados por el artefacto.
 
 ## 5.1. Casos de prueba y validación funcional
 
