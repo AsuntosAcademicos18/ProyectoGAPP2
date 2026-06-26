@@ -457,6 +457,7 @@ Incluye la totalidad de los documentos evaluados, incorporando aquellos casos do
 | 33 | 4,7 | 4,7 | 4,7 | 4,7 | 5,0 |
 | 43 | 5,0 | 5,0 | 5,0 | 5,0 | 5,0 |
 | **Promedio general** | **4,5** | **4,5** | **4,5** | **4,5** | **4,5** |
+
 Nota. Resultados de la evaluación semántica realizada por diez funcionarios de la entidad mediante una escala Likert de cinco puntos. Cada documento fue valorado por tres evaluadores independientes. La tabla incluye la totalidad de la muestra, incorporando los documentos que no lograron completar satisfactoriamente el proceso de extracción y resumen debido a limitaciones en la fase de captura documental.
 
 ### Tabla X. Evaluación semántica de resúmenes y palabras clave (muestra completa, N = 30)
@@ -493,6 +494,7 @@ Excluye los documentos 14, 15 y 18, los cuales no generaron adecuadamente el res
 | 33 | 4,7 | 4,7 | 4,7 | 4,7 | 5,0 |
 | 43 | 5,0 | 5,0 | 5,0 | 5,0 | 5,0 |
 | **Promedio general** | **4,9** | **4,9** | **4,9** | **4,9** | **4,9** |
+
 Nota. Resultados de la evaluación semántica considerando únicamente los documentos cuyo procesamiento fue exitoso. La eliminación de los casos fallidos permite aislar el desempeño del modelo de lenguaje de las limitaciones asociadas a la captura y extracción óptica del texto original. La valoración promedio de 4,9 sobre 5 indica una percepción altamente favorable de los usuarios respecto a la exactitud, completitud, claridad, pertinencia de las palabras clave y utilidad institucional de los resúmenes generados por el artefacto.
 
 ## 5.1. Casos de prueba y validación funcional
