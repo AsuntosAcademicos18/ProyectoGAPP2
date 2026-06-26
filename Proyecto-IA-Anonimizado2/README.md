@@ -386,7 +386,7 @@ La evaluación se desarrolló sobre un conjunto de documentos administrativos he
 Tabla X. Matriz de rendimiento y tolerancia a fallos del banco de pruebas documental (_N = 30_). La tabla presenta los documentos utilizados durante la validación funcional del artefacto, incluyendo tamaño del archivo, características físicas del soporte documental, tiempos de preprocesamiento, latencia transaccional extremo a extremo y resultado final de la generación automática del resumen. Los casos fallidos corresponden a documentos con limitaciones en la fase de captura y extracción óptica de texto, particularmente en soportes impresos sobre papel color beige o con contenido manuscrito.
 
 | ID | Nombre del archivo | Tamaño (Kb) | Característica física | Grupo | Hora de envío | Tiempo de preprocesamiento (ms) | Hora de recepción | Duración (ms) | Duración (s) | ¿Realizó resumen? |
-|:--:|:-----------------:|:-----------:|:----------------------:|--------|---------------|--------------------------------|------------------|---------------|--------------|------------------|
+|:--:|-------------------|:-----------:|------------------------|--------|---------------|:------------------------------:|------------------|:-------------:|:------------:|------------------|
 | 14 | 20230626 Acta 1 | 2.926 | Documento impreso en papel color beige | Acta | 16:15:34 | 271 | 16:15:37 | 2.729 | 2,73 | No |
 | 15 | 20240216 Acta 5 | 976 | Documento impreso en papel color beige escrito a mano | Acta | 16:26:35 | 174 | 16:26:37 | 1.826 | 1,83 | No |
 | 16 | 20240712 Acta 9 | 145 | Documento digitalizado | Acta | 16:37:51 | 115 | 16:37:53 | 1.885 | 1,89 | Sí |
