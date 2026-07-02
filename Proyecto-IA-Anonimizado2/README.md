@@ -31,8 +31,8 @@ Cada una de estas secciones se encuentra vinculada explícitamente con los apart
 
 La solución propuesta se implementó mediante una arquitectura desacoplada orientada al procesamiento automatizado de documentos administrativos. El diseño distribuye las responsabilidades funcionales entre diferentes capas especializadas, permitiendo separar la captura documental, la integración, el procesamiento semántico y la explotación analítica de los resultados.
 
-## Figura A1. Arquitectura general del artefacto
-
+### Figura 1. 
+### _Arquitectura general del artefacto_
 ```mermaid
 graph TD
 
@@ -79,8 +79,8 @@ Las validaciones implementadas incluyen:
 
 Estas restricciones permiten reducir inconsistencias en los datos de entrada y mejorar la estabilidad del procesamiento posterior.
 
-### Figura A2. Interfaz de captura y validación documental
-
+### Figura 2. 
+### _Interfaz de captura y validación documental_
 ![Pantalla de captura y validación](docs/img/01-captura-validacion.png)
 
 ---
@@ -89,8 +89,8 @@ Estas restricciones permiten reducir inconsistencias en los datos de entrada y m
 
 Una vez completado el procesamiento documental, la información generada por la arquitectura retorna al entorno institucional y es presentada al usuario mediante la propia interfaz de Power Apps. Esta estrategia permite mantener la experiencia de interacción dentro de un único entorno de trabajo y evita que los usuarios deban consultar sistemas externos para acceder a los resultados.
 
-### Figura A3. Visualización de resultados estructurados
-
+### Figura 3. 
+### _Visualización de resultados estructurados_
 ![Visualización de resultados](docs/img/02-resultados-ia.png)
 
 ---
@@ -99,8 +99,8 @@ Una vez completado el procesamiento documental, la información generada por la 
 
 La interoperabilidad entre la infraestructura institucional y los componentes especializados de procesamiento se implementó mediante flujos automatizados de Power Automate y solicitudes HTTP estructuradas. La arquitectura resultante facilita la integración de servicios especializados sin requerir modificaciones sustanciales en los sistemas institucionales existentes.
 
-### Figura A4. Comparación entre una integración entre un proceso con arquitectura desacoplada y servicios nativos.
-
+### Figura 4. 
+### _Comparación entre una integración entre un proceso con arquitectura desacoplada y servicios nativos_
 ![Integración entre Power Automate y HTTP Request](docs/img/03-comparación-arquitecturas.png)
 
 ---
@@ -115,8 +115,8 @@ Estos registros deben interpretarse como ejemplos ilustrativos del comportamient
 
 La estrategia implementada para mitigar este comportamiento se describe posteriormente en la Sección 3.4 del presente anexo y en la subsección 4.5 del manuscrito.
 
-### Figura A5. Escenarios operativos del flujo de ejecución
-
+### Figura 5. 
+### _Escenarios operativos del flujo de ejecución_
 ![Escenarios del flujo](docs/img/04-escenarios-flujos.png)
 
 # 3. Evidencia técnica del microservicio de integración y procesamiento semántico
@@ -131,8 +131,8 @@ Antes de iniciar cualquier proceso de inferencia, el microservicio verifica que 
 
 Para ello se implementó la librería **Knor**, utilizada como mecanismo de validación de esquemas JSON en el punto de entrada del servicio.
 
-### Fragmento representativo de validación estructural
-
+### Figura 6._
+### _Fragmento representativo de validación estructural_
 ```javascript
 const { k } = require('knor');
 
@@ -172,8 +172,8 @@ Estas instrucciones fueron implementadas mediante un *system prompt* que define:
 - Las restricciones de formato.
 - La estructura de la respuesta devuelta al sistema.
 
-### Fragmento representativo del prompt sistémico
-
+### Figura 7.
+### _Fragmento representativo del prompt sistémico_
 ```javascript
 const construirPromptSistemico = () => {
     return `
@@ -206,8 +206,8 @@ La interacción se realiza mediante solicitudes HTTP estructuradas que incluyen:
 - Los parámetros de configuración del modelo.
 - Los mecanismos de control de formato de respuesta.
 
-### Fragmento representativo de integración
-
+### Figura 8.
+### _Fragmento representativo de integración_
 ```javascript
 const payload = {
     model: "MODELO_UTILIZADO",
@@ -240,8 +240,8 @@ Con el fin de mitigar este comportamiento, se implementó una estrategia de disp
 
 La lógica de funcionamiento consiste en realizar solicitudes de bajo impacto al entorno de ejecución a intervalos regulares para evitar estados prolongados de suspensión.
 
-### Ejemplo conceptual de configuración
-
+### Figura 9. 
+### _Ejemplo conceptual de configuración_
 ```text
 Nombre del Job:
 Keep-Alive-Middleware
@@ -264,8 +264,8 @@ El agrupamiento esquematizado de la información favorece la consulta de resulta
 
 ---
 
-## Figura A6. 
-## _Entorno de visualización y explotación analítica_
+### Figura 10. 
+### _Entorno de visualización y explotación analítica_
 ![Visualización de los datos para apoyo a la gestión documental](docs/img/05-visualización-BI.png)
 
 ---
@@ -280,7 +280,7 @@ La presente sección documenta las evidencias de validación funcional utilizada
 La Tabla 1 presenta los documentos utilizados durante la validación funcional del artefacto, incluyendo el tamaño del archivo, características físicas del soporte documental, tiempos de preprocesamiento, latencia transaccional extremo a extremo y resultado final de la generación automática del resumen. Los casos fallidos corresponden a documentos con limitaciones en la fase de captura y extracción óptica de texto, particularmente en soportes impresos sobre papel color beige o con contenido manuscrito.
 
 ### Tabla 1. 
-### Matriz de rendimiento y tolerancia a fallos del banco de pruebas documental (_N = 30_)
+### _Matriz de rendimiento y tolerancia a fallos del banco de pruebas documental (N = 30)_
 | ID | Nombre del archivo | Tamaño (Kb) | Característica física | Grupo | Hora de envío | Tiempo de preprocesamiento (ms) | Hora de recepción | Duración (ms) | Duración (s) | ¿Realizó resumen? |
 |:--:|-------------------|:-----------:|------------------------|--------|---------------|:------------------------------:|------------------|:-------------:|:------------:|------------------|
 | 14 | 20230626 Acta 1 | 2.926 | Documento impreso en papel color beige | Acta | 16:15:34 | 271 | 16:15:37 | 2.729 | 2,73 | No |
@@ -354,9 +354,8 @@ La Tabla 1 presenta los documentos utilizados durante la validación funcional d
 
 _Nota._ Resultados de la evaluación semántica realizada por diez funcionarios de la entidad mediante una escala Likert de cinco puntos. Cada documento fue valorado por tres evaluadores independientes. La tabla incluye la totalidad de la muestra, incorporando los documentos que no lograron completar satisfactoriamente el proceso de extracción y resumen debido a limitaciones en la fase de captura documental.
 
-### Tabla X. 
+### Tabla 3. 
 ### _Evaluación semántica de resúmenes y palabras clave (muestra completa, N = 30)_
-
 | Documento ID | Exactitud | Completitud | Claridad | Palabras clave | Utilidad institucional |
 |-------------|----------:|------------:|---------:|---------------:|----------------------:|
 | 22 | 5,0 | 5,0 | 5,0 | 5,0 | 5,0 |
@@ -404,15 +403,11 @@ Los casos considerados abarcaron:
 
 La Tabla A1 resume los escenarios representativos utilizados durante las pruebas.
 
-### Tabla A1. 
+### Tabla 4. 
 ### _Escenarios de validación funcional_
-
 | ID | Componente | Escenario evaluado | Resultado esperado | Resultado observado | Estado |
 |----------|----------|----------|----------|----------|----------|
 | QA-01 | Interfaz de captura | Carga de archivo con formato no admitido | Bloqueo de la operación y notificación al usuario | Restricción aplicada correctamente | ✅ |
 | QA-02 | Validación estructural | Envío de solicitud con información incompleta | Rechazo de la transacción | Solicitud rechazada mediante validación estructural | ✅ |
 | QA-03 | Procesamiento documental | Documento extenso con contenido textual válido | Generación de respuesta estructurada | Procesamiento completado satisfactoriamente | ✅ |
 | QA-04 | Control de acceso | Solicitud sin credenciales válidas | Denegación de acceso al servicio | Acceso restringido correctamente | ✅ |
-
-
-
