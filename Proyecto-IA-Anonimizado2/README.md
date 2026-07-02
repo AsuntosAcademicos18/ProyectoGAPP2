@@ -31,30 +31,6 @@ Cada una de estas secciones se encuentra vinculada explícitamente con los apart
 
 La solución propuesta se implementó mediante una arquitectura desacoplada orientada al procesamiento automatizado de documentos administrativos. El diseño distribuye las responsabilidades funcionales entre diferentes capas especializadas, permitiendo separar la captura documental, la integración, el procesamiento semántico y la explotación analítica de los resultados.
 
-La arquitectura se encuentra compuesta por cinco niveles funcionales:
-
-## 1.1. Capa de captura y orquestación institucional
-
-Esta capa se apoya en el ecosistema Microsoft 365 y está integrada por Power Apps, Power Automate y SharePoint. Su función consiste en capturar los documentos suministrados por los usuarios autorizados, iniciar el flujo documental y gestionar el almacenamiento institucional de la información procesada.
-
-## 1.2. Capa de interoperabilidad
-
-Corresponde al mecanismo mediante el cual la información estructurada es transferida desde Microsoft 365 hacia servicios especializados mediante solicitudes HTTP. Esta capa actúa como interfaz de intercambio entre el entorno institucional y los componentes externos de procesamiento.
-
-## 1.3. Capa de integración y control lógico
-
-Implementada mediante un microservicio desarrollado en Node.js, esta capa verifica la integridad de las solicitudes recibidas, valida la estructura de los datos y prepara las instrucciones que serán enviadas al modelo fundacional utilizado para el análisis documental.
-
-## 1.4. Capa de procesamiento semántico
-
-Esta capa concentra las funciones de inferencia asociadas al procesamiento del lenguaje natural. Su propósito consiste en transformar el contenido documental en información estructurada, generando resúmenes ejecutivos y metadatos reutilizables dentro del flujo institucional.
-
-## 1.5. Capa de persistencia y explotación analítica
-
-Finalmente, los resultados obtenidos son reincorporados a los repositorios institucionales para su almacenamiento, consulta y utilización posterior en procesos de recuperación documental y análisis de información.
-
-La Figura A1 presenta la representación general de la arquitectura implementada.
-
 ## Figura A1. Arquitectura general del artefacto
 
 ```mermaid
@@ -88,8 +64,6 @@ La arquitectura fue concebida para minimizar las dependencias entre componentes 
 
 La capa de interacción constituye el punto de entrada del artefacto y concentra las funciones de captura documental, validación preliminar y visualización de resultados. Su diseño se orientó a mantener toda la experiencia de uso dentro del entorno institucional de Microsoft 365, evitando que los usuarios debieran interactuar directamente con componentes externos o servicios especializados de procesamiento semántico.
 
-Las evidencias visuales presentadas en esta sección documentan los principales componentes de interacción incorporados al sistema y complementan la descripción desarrollada en las subsecciones 4.2 y 4.3 del manuscrito.
-
 ---
 
 ## 2.1. Captura documental y validación preliminar
@@ -113,16 +87,7 @@ Estas restricciones permiten reducir inconsistencias en los datos de entrada y m
 
 ## 2.2. Visualización de resultados documentales
 
-Una vez completado el procesamiento documental, la información generada por la arquitectura retorna al entorno institucional y es presentada al usuario mediante la propia interfaz de Power Apps.
-
-La solución permite visualizar de manera inmediata:
-
-- El resumen ejecutivo generado durante el procesamiento.
-- Las palabras clave identificadas por el sistema.
-- La información asociada al documento procesado.
-- El estado actualizado del registro documental.
-
-Esta estrategia permite mantener la experiencia de interacción dentro de un único entorno de trabajo y evita que los usuarios deban consultar sistemas externos para acceder a los resultados.
+Una vez completado el procesamiento documental, la información generada por la arquitectura retorna al entorno institucional y es presentada al usuario mediante la propia interfaz de Power Apps. Esta estrategia permite mantener la experiencia de interacción dentro de un único entorno de trabajo y evita que los usuarios deban consultar sistemas externos para acceder a los resultados.
 
 ### Figura A3. Visualización de resultados estructurados
 
@@ -132,18 +97,9 @@ Esta estrategia permite mantener la experiencia de interacción dentro de un ún
 
 ## 2.3. Integración entre Power Automate y servicios HTTP
 
-La interoperabilidad entre la infraestructura institucional y los componentes especializados de procesamiento se implementó mediante flujos automatizados de Power Automate y solicitudes HTTP estructuradas.
+La interoperabilidad entre la infraestructura institucional y los componentes especializados de procesamiento se implementó mediante flujos automatizados de Power Automate y solicitudes HTTP estructuradas. La arquitectura resultante facilita la integración de servicios especializados sin requerir modificaciones sustanciales en los sistemas institucionales existentes.
 
-Esta capa cumple una función de coordinación entre los distintos componentes del artefacto y permite:
-
-- Consolidar la información documental capturada.
-- Preparar los metadatos requeridos para el procesamiento.
-- Transferir la información mediante objetos JSON estructurados.
-- Recibir e incorporar las respuestas generadas por el sistema.
-
-La arquitectura resultante facilita la integración de servicios especializados sin requerir modificaciones sustanciales en los sistemas institucionales existentes.
-
-### Figura A4. Integración entre Power Automate y servicios HTTP
+### Figura A4. Comparación entre una integración entre un proceso con arquitectura desacoplada y servicios nativos.
 
 ![Integración entre Power Automate y HTTP Request](docs/img/03-comparación-arquitecturas.png)
 
@@ -166,8 +122,6 @@ La estrategia implementada para mitigar este comportamiento se describe posterio
 # 3. Evidencia técnica del microservicio de integración y procesamiento semántico
 
 La presente sección documenta los componentes técnicos más relevantes del microservicio de integración utilizado durante la implementación del artefacto. Su objetivo consiste en proporcionar evidencia complementaria de los mecanismos empleados para validar la información intercambiada entre sistemas, parametrizar el modelo fundacional y garantizar la consistencia estructural de los resultados generados.
-
-Los fragmentos de código incluidos han sido sanitizados con el fin de proteger elementos sensibles de infraestructura y seguridad. En consecuencia, los ejemplos presentados reproducen la lógica funcional del sistema sin exponer credenciales, identificadores institucionales o componentes críticos asociados al entorno de producción.
 
 ---
 
@@ -306,85 +260,27 @@ Esta estrategia no participa directamente en el procesamiento documental ni modi
 
 # 4. Visualización y explotación analítica de resultados
 
-La fase final del artefacto se orienta a la persistencia, consulta y explotación de la información generada durante el procesamiento documental. Una vez completada la inferencia, los resultados estructurados son reincorporados a los repositorios institucionales para su almacenamiento y posterior utilización en procesos de recuperación documental y análisis de información.
-
-Esta capa complementa la funcionalidad del sistema al permitir que los productos generados durante la inferencia —particularmente los resúmenes ejecutivos y las palabras clave— puedan ser reutilizados en actividades de consulta, seguimiento documental y análisis institucional.
-
-La evidencia visual presentada a continuación ilustra la manera en que los resultados procesados son integrados en un entorno de consulta diseñado para facilitar el acceso a la información almacenada en los repositorios institucionales.
+El agrupamiento esquematizado de la información favorece la consulta de resultados históricos, especialmente a la hora de asignar filtros de búsqueda que permiten la extracción de datos puntuales, sin importar que tan antiguos sean y sin la necesidad de aludir a la memoria humana para llegar a ellos. Este panel de visualización ubica la sección de filtros por categorías especiales y tiempo que favorecen la búsqueda histórica y relevante de actas o metadatos (resúmenes y palabras clave) almacenados en los repositorios. El **recuadro 1** contiene los filtros que permiten la búsqueda histórica de la reunión con su respectiva acta, bien sea por el ID, algún texto específico en el resumen o las palabras clave, la dependencia, el equipo de trabajo o el nombre del funcionario responsable de la reunión. El **recuadro 2** muestra el listado de asistencia de los participantes a la reunión muestra el listado de asistencia a la reunión. El **recuadro 3** deja ver el resumen y las palabras clave extraídas generadas por el modelo Llama 3.3 a través del motor de inferencia Groq. El **recuadro 4** permite visualizar el documento original almacenado en el repositorio de datos en SharePoint de Microsoft 365.
 
 ---
 
-## Figura A6. Entorno de visualización y explotación analítica
-
+## Figura A6. 
+## _Entorno de visualización y explotación analítica_
 ![Visualización de los datos para apoyo a la gestión documental](docs/img/05-visualización-BI.png)
 
 ---
-
-## 4.1. Organización de la información consultable
-
-El entorno de visualización integra la información documental original con los metadatos generados durante el procesamiento semántico. Esta organización permite consultar simultáneamente:
-
-- El documento almacenado en el repositorio institucional.
-- Los resúmenes ejecutivos generados por el sistema.
-- Las palabras clave asociadas al contenido documental.
-- Los metadatos de identificación y clasificación del registro.
-
-La integración de estos elementos favorece la consulta de información histórica y permite mantener la trazabilidad entre los documentos originales y los resultados derivados del procesamiento automatizado.
-
----
-
-## 4.2. Mecanismos de búsqueda y recuperación de información
-
-Los metadatos generados por el sistema amplían las capacidades tradicionales de búsqueda documental al incorporar nuevas variables de consulta derivadas del análisis semántico.
-
-Entre los criterios de filtrado implementados se encuentran:
-
-- Identificador documental.
-- Texto contenido en los resúmenes ejecutivos.
-- Palabras clave generadas durante la inferencia.
-- Dependencia organizacional.
-- Responsable del registro documental.
-- Periodos temporales asociados a la documentación almacenada.
-
-Estos mecanismos permiten complementar las búsquedas tradicionales basadas exclusivamente en nombres de archivo o ubicaciones de almacenamiento.
-
----
-
-## 4.3. Integración entre gestión documental y análisis de información
-
-La incorporación de resúmenes ejecutivos y palabras clave transforma los documentos administrativos en registros enriquecidos con información estructurada adicional.
-
-Desde una perspectiva funcional, esta capa permite aprovechar los resultados del procesamiento documental más allá de la lectura inicial del documento, facilitando procesos posteriores de consulta, recuperación y análisis institucional.
-
-La solución implementada mantiene la vinculación entre el documento original y los productos generados durante la inferencia, preservando la coherencia documental y favoreciendo la reutilización de la información dentro del ecosistema institucional.
-
----
-
-## 4.4. Relación con el artefacto presentado en el manuscrito
-
-La información visualizada en este entorno corresponde a los resultados producidos por el flujo arquitectónico descrito en el artículo principal.
-
-En consecuencia:
-
-1. Los documentos son capturados y validados mediante la interfaz institucional.
-2. La información es procesada a través del flujo de integración y del microservicio especializado.
-3. El sistema genera resúmenes ejecutivos y palabras clave estructuradas.
-4. Los resultados retornan a los repositorios institucionales.
-5. La información enriquecida es puesta a disposición para consulta y análisis posterior.
-
-De esta forma, la capa de visualización y explotación analítica constituye la etapa final del ciclo de procesamiento documental implementado por el artefacto.
 
 # 5. Evidencias de validación funcional del artefacto
 
 La presente sección documenta las evidencias de validación funcional utilizadas durante la evaluación del artefacto. Su propósito consiste en proporcionar soporte empírico complementario a los resultados presentados en el manuscrito, describiendo los principales escenarios de prueba implementados, los mecanismos de control aplicados y los resultados generales observados durante la validación.
 
-La evaluación se desarrolló sobre un conjunto de documentos administrativos heterogéneos y tuvo como objetivo verificar la estabilidad operativa del flujo documental, la capacidad del sistema para completar las transacciones previstas y la consistencia estructural de la información generada.
-
 ---
 ## 5.1. Prueba de rendimiento y tolerancia a fallos
 
-Tabla X. Matriz de rendimiento y tolerancia a fallos del banco de pruebas documental (_N = 30_). La tabla presenta los documentos utilizados durante la validación funcional del artefacto, incluyendo tamaño del archivo, características físicas del soporte documental, tiempos de preprocesamiento, latencia transaccional extremo a extremo y resultado final de la generación automática del resumen. Los casos fallidos corresponden a documentos con limitaciones en la fase de captura y extracción óptica de texto, particularmente en soportes impresos sobre papel color beige o con contenido manuscrito.
+La Tabla 1 presenta los documentos utilizados durante la validación funcional del artefacto, incluyendo el tamaño del archivo, características físicas del soporte documental, tiempos de preprocesamiento, latencia transaccional extremo a extremo y resultado final de la generación automática del resumen. Los casos fallidos corresponden a documentos con limitaciones en la fase de captura y extracción óptica de texto, particularmente en soportes impresos sobre papel color beige o con contenido manuscrito.
 
+### Tabla 1. 
+### Matriz de rendimiento y tolerancia a fallos del banco de pruebas documental (_N = 30_)
 | ID | Nombre del archivo | Tamaño (Kb) | Característica física | Grupo | Hora de envío | Tiempo de preprocesamiento (ms) | Hora de recepción | Duración (ms) | Duración (s) | ¿Realizó resumen? |
 |:--:|-------------------|:-----------:|------------------------|--------|---------------|:------------------------------:|------------------|:-------------:|:------------:|------------------|
 | 14 | 20230626 Acta 1 | 2.926 | Documento impreso en papel color beige | Acta | 16:15:34 | 271 | 16:15:37 | 2.729 | 2,73 | No |
@@ -420,10 +316,8 @@ Tabla X. Matriz de rendimiento y tolerancia a fallos del banco de pruebas docume
 
 ## 5.2. Evaluación semántica del modelo Llamma 3.3
 
-### Tabla X. Evaluación semántica de resúmenes y palabras clave (muestra completa, N = 30)
-
-Incluye la totalidad de los documentos evaluados, incorporando aquellos casos donde el sistema no logró generar correctamente el resumen o las palabras clave como consecuencia de fallas previas en la fase de captura y extracción de texto.
-
+### Tabla 2. 
+### _Evaluación semántica de resúmenes y palabras clave (muestra completa, N = 30)_
 | Documento ID | Exactitud | Completitud | Claridad | Palabras clave | Utilidad institucional |
 |-------------|----------:|------------:|---------:|---------------:|----------------------:|
 | 22 | 5,0 | 5,0 | 5,0 | 5,0 | 5,0 |
@@ -458,11 +352,10 @@ Incluye la totalidad de los documentos evaluados, incorporando aquellos casos do
 | 43 | 5,0 | 5,0 | 5,0 | 5,0 | 5,0 |
 | **Promedio general** | **4,5** | **4,5** | **4,5** | **4,5** | **4,5** |
 
-Nota. Resultados de la evaluación semántica realizada por diez funcionarios de la entidad mediante una escala Likert de cinco puntos. Cada documento fue valorado por tres evaluadores independientes. La tabla incluye la totalidad de la muestra, incorporando los documentos que no lograron completar satisfactoriamente el proceso de extracción y resumen debido a limitaciones en la fase de captura documental.
+_Nota._ Resultados de la evaluación semántica realizada por diez funcionarios de la entidad mediante una escala Likert de cinco puntos. Cada documento fue valorado por tres evaluadores independientes. La tabla incluye la totalidad de la muestra, incorporando los documentos que no lograron completar satisfactoriamente el proceso de extracción y resumen debido a limitaciones en la fase de captura documental.
 
-### Tabla X. Evaluación semántica de resúmenes y palabras clave (muestra completa, N = 30)
-
-Excluye los documentos 14, 15 y 18, los cuales no generaron adecuadamente el resumen ni las palabras clave debido a fallas en la captura del contenido textual.
+### Tabla X. 
+### _Evaluación semántica de resúmenes y palabras clave (muestra completa, N = 30)_
 
 | Documento ID | Exactitud | Completitud | Claridad | Palabras clave | Utilidad institucional |
 |-------------|----------:|------------:|---------:|---------------:|----------------------:|
@@ -495,7 +388,7 @@ Excluye los documentos 14, 15 y 18, los cuales no generaron adecuadamente el res
 | 43 | 5,0 | 5,0 | 5,0 | 5,0 | 5,0 |
 | **Promedio general** | **4,9** | **4,9** | **4,9** | **4,9** | **4,9** |
 
-Nota. Resultados de la evaluación semántica considerando únicamente los documentos cuyo procesamiento fue exitoso. La eliminación de los casos fallidos permite aislar el desempeño del modelo de lenguaje de las limitaciones asociadas a la captura y extracción óptica del texto original. La valoración promedio de 4,9 sobre 5 indica una percepción altamente favorable de los usuarios respecto a la exactitud, completitud, claridad, pertinencia de las palabras clave y utilidad institucional de los resúmenes generados por el artefacto.
+_Nota._ Resultados de la evaluación semántica considerando únicamente los documentos cuyo procesamiento fue exitoso. La eliminación de los casos fallidos (14, 15 y 18) permite aislar el desempeño del modelo de lenguaje de las limitaciones asociadas a la captura y extracción óptica del texto original. La valoración promedio de 4,9 sobre 5 indica una percepción altamente favorable de los usuarios respecto a la exactitud, completitud, claridad, pertinencia de las palabras clave y utilidad institucional de los resúmenes generados por el artefacto.
 
 ## 5.1. Casos de prueba y validación funcional
 
@@ -511,7 +404,8 @@ Los casos considerados abarcaron:
 
 La Tabla A1 resume los escenarios representativos utilizados durante las pruebas.
 
-### Tabla A1. Escenarios de validación funcional
+### Tabla A1. 
+### _Escenarios de validación funcional_
 
 | ID | Componente | Escenario evaluado | Resultado esperado | Resultado observado | Estado |
 |----------|----------|----------|----------|----------|----------|
