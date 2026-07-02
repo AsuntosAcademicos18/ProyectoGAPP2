@@ -131,7 +131,7 @@ Antes de iniciar cualquier proceso de inferencia, el microservicio verifica que 
 
 Para ello se implementó la librería **Knor**, utilizada como mecanismo de validación de esquemas JSON en el punto de entrada del servicio.
 
-### Figura 6._
+### Figura 6.
 ### _Fragmento representativo de validación estructural_
 ```javascript
 const { k } = require('knor');
@@ -261,8 +261,6 @@ Esta estrategia no participa directamente en el procesamiento documental ni modi
 # 4. Visualización y explotación analítica de resultados
 
 El agrupamiento esquematizado de la información favorece la consulta de resultados históricos, especialmente a la hora de asignar filtros de búsqueda que permiten la extracción de datos puntuales, sin importar que tan antiguos sean y sin la necesidad de aludir a la memoria humana para llegar a ellos. Este panel de visualización ubica la sección de filtros por categorías especiales y tiempo que favorecen la búsqueda histórica y relevante de actas o metadatos (resúmenes y palabras clave) almacenados en los repositorios. El **recuadro 1** contiene los filtros que permiten la búsqueda histórica de la reunión con su respectiva acta, bien sea por el ID, algún texto específico en el resumen o las palabras clave, la dependencia, el equipo de trabajo o el nombre del funcionario responsable de la reunión. El **recuadro 2** muestra el listado de asistencia de los participantes a la reunión muestra el listado de asistencia a la reunión. El **recuadro 3** deja ver el resumen y las palabras clave extraídas generadas por el modelo Llama 3.3 a través del motor de inferencia Groq. El **recuadro 4** permite visualizar el documento original almacenado en el repositorio de datos en SharePoint de Microsoft 365.
-
----
 
 ### Figura 10. 
 ### _Entorno de visualización y explotación analítica_
