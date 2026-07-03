@@ -321,7 +321,7 @@ _Nota_: La tabla hace alusión al comportamiento operativo de los procesos 3 a 9
 ---
 ## 5.2. Evaluación semántica del modelo Llamma 3.3
 
-La evaluación semántica de los documentos permitió establecer 
+La evaluación semántica de los documentos permitió establecer la pertinencia del artefacto de cara a los usuarios que se verían beneficiados en su implementación de acuerdo con las características incluídas en las tablas 2 y 3.
 
 ### Tabla 2. 
 ### _Evaluación semántica de resúmenes y palabras clave (muestra completa, N = 30)_
@@ -397,7 +397,7 @@ _Nota._ Resultados de la evaluación semántica realizada por diez funcionarios 
 _Nota._ Resultados de la evaluación semántica considerando únicamente los documentos cuyo procesamiento fue exitoso. La eliminación de los casos fallidos (14, 15 y 18) permite aislar el desempeño del modelo de lenguaje de las limitaciones asociadas a la captura y extracción óptica del texto original. La valoración promedio de 4,9 sobre 5 indica una percepción altamente favorable de los usuarios respecto a la exactitud, completitud, claridad, pertinencia de las palabras clave y utilidad institucional de los resúmenes generados por el artefacto.
 
 ---
-## 5.1. Casos de prueba y validación funcional
+## 5.3. Casos de prueba y validación funcional
 
 Como parte del proceso de evaluación se definieron escenarios de prueba orientados a validar los principales componentes de la arquitectura.
 
