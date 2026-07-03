@@ -125,6 +125,8 @@ La estrategia implementada para mitigar este comportamiento se describe posterio
 ### _Escenarios operativos del flujo de ejecución_
 ![Escenarios del flujo](docs/img/04-escenarios-flujos.png)
 
+---
+
 # 3. Evidencia técnica del microservicio de integración y procesamiento semántico
 
 La presente sección documenta los componentes técnicos más relevantes del microservicio de integración utilizado durante la implementación del artefacto. Su objetivo consiste en proporcionar evidencia complementaria de los mecanismos empleados para validar la información intercambiada entre sistemas, parametrizar el modelo fundacional y garantizar la consistencia estructural de los resultados generados.
@@ -240,11 +242,7 @@ La utilización de una temperatura reducida y de un formato de respuesta estruct
 
 ## 3.4. Estrategia de disponibilidad y mitigación del fenómeno Cold Start
 
-Durante las pruebas de validación se identificó la existencia de incrementos temporales en los tiempos de respuesta cuando el entorno de ejecución permanecía inactivo durante periodos prolongados.
-
-Con el fin de mitigar este comportamiento, se implementó una estrategia de disponibilidad basada en activaciones periódicas del servicio mediante **ConsoleCron**.
-
-La lógica de funcionamiento consiste en realizar solicitudes de bajo impacto al entorno de ejecución a intervalos regulares para evitar estados prolongados de suspensión.
+Durante las pruebas de validación se identificó la existencia de incrementos temporales en los tiempos de respuesta cuando el entorno de ejecución permanecía inactivo durante periodos prolongados. Con el fin de mitigar este comportamiento, se implementó una estrategia de disponibilidad basada en activaciones periódicas del servicio mediante **ConsoleCron**. La lógica de funcionamiento consiste en realizar solicitudes de bajo impacto al entorno de ejecución a intervalos regulares para evitar estados prolongados de suspensión.
 
 ### Figura 8. 
 ### _Ejemplo conceptual de configuración_
@@ -266,7 +264,7 @@ Esta estrategia no participa directamente en el procesamiento documental ni modi
 
 # 4. Visualización y explotación analítica de resultados
 
-El agrupamiento esquematizado de la información favorece la consulta de resultados históricos, especialmente a la hora de asignar filtros de búsqueda que permiten la extracción de datos puntuales, sin importar que tan antiguos sean y sin la necesidad de aludir a la memoria humana para llegar a ellos. Este panel de visualización ubica la sección de filtros por categorías especiales y tiempo que favorecen la búsqueda histórica y relevante de actas o metadatos (resúmenes y palabras clave) almacenados en los repositorios. El **recuadro 1** contiene los filtros que permiten la búsqueda histórica de la reunión con su respectiva acta, bien sea por el ID, algún texto específico en el resumen o las palabras clave, la dependencia, el equipo de trabajo o el nombre del funcionario responsable de la reunión. El **recuadro 2** muestra el listado de asistencia de los participantes a la reunión muestra el listado de asistencia a la reunión. El **recuadro 3** deja ver el resumen y las palabras clave extraídas generadas por el modelo Llama 3.3 a través del motor de inferencia Groq. El **recuadro 4** permite visualizar el documento original almacenado en el repositorio de datos en SharePoint de Microsoft 365.
+El agrupamiento esquematizado de la información favorece la consulta de resultados históricos, especialmente a la hora de asignar filtros de búsqueda que permiten la extracción de datos puntuales, sin importar que tan antiguos sean y sin la necesidad de aludir a la memoria humana para llegar a ellos. Este panel de visualización ubica la sección de filtros por categorías especiales y tiempo que favorecen la búsqueda histórica y relevante de actas o metadatos (resúmenes y palabras clave) almacenados en los repositorios. En la Figura 9, el **recuadro 1** contiene los filtros que permiten la búsqueda histórica de la reunión con su respectiva acta, bien sea por el ID, algún texto específico en el resumen o las palabras clave, la dependencia, el equipo de trabajo o el nombre del funcionario responsable de la reunión. El **recuadro 2** muestra el listado de asistencia de los participantes a la reunión muestra el listado de asistencia a la reunión. El **recuadro 3** deja ver el resumen y las palabras clave extraídas generadas por el modelo Llama 3.3 a través del motor de inferencia Groq. El **recuadro 4** permite visualizar el documento original almacenado en el repositorio de datos en SharePoint de Microsoft 365.
 
 ### Figura 9. 
 ### _Entorno de visualización y explotación analítica_
@@ -281,7 +279,7 @@ La presente sección documenta las evidencias de validación funcional utilizada
 ---
 ## 5.1. Prueba de rendimiento y tolerancia a fallos
 
-La Tabla 1 presenta los documentos utilizados durante la validación funcional del artefacto, incluyendo el tamaño del archivo, características físicas del soporte documental, tiempos de preprocesamiento, latencia transaccional extremo a extremo y resultado final de la generación automática del resumen. Los casos fallidos corresponden a documentos con limitaciones en la fase de captura y extracción óptica de texto, particularmente en soportes impresos sobre papel color beige o con contenido manuscrito.
+La Tabla 1 presenta los documentos utilizados durante la validación funcional del artefacto, incluyendo el tamaño del archivo, características físicas del soporte documental, tiempos de preprocesamiento, latencia transaccional extremo a extremo y resultado final de la generación automática del resumen. Los casos fallidos corresponden a documentos con limitaciones en la fase de captura y extracción óptica de texto, particularmente en soportes impresos sobre papel color beige o con contenido manuscrito. Para estos casos, aunque el proceso no reportó un problema debido a que logró extraer algunos datos parciales, los resúmenes resaltaron la inconsistencia de los datos enviados.
 
 ### Tabla 1. 
 ### _Matriz de rendimiento y tolerancia a fallos del banco de pruebas documental (N = 30)_
@@ -318,7 +316,12 @@ La Tabla 1 presenta los documentos utilizados durante la validación funcional d
 | 42 | REGLAMENTO DE PRESTACIÓN DE SERVICIOS (2) | 1.068 | Documento digitalizado | Variado | 08:23:19 | 176 | 08:23:22 | 2.824 | 2,82 | Sí |
 | 43 | Segundo_Auto_de_pruebas_T-11.443.237_anonimizado_100426 | 374 | Documento digitalizado | Variado | 08:24:33 | 96 | 08:24:36 | 2.904 | 2,90 | Sí |
 
+_Nota_: La tabla hace alusión al comportamiento operativo de los procesos 3 a 9 referenciados en la Figura 1. El tiempo de duración se calculó bajo la siguiente lógica: (Hora de recepción - Hora de envío) - Tiempo de preprocesamiento. El último ítem se involucra en la medición, pues es un proceso que se surte en la plataforma Power Automate para enviar el documento procesado como Objeto JSON. 
+
+---
 ## 5.2. Evaluación semántica del modelo Llamma 3.3
+
+La evaluación semántica de los documentos permitió establecer 
 
 ### Tabla 2. 
 ### _Evaluación semántica de resúmenes y palabras clave (muestra completa, N = 30)_
@@ -393,6 +396,7 @@ _Nota._ Resultados de la evaluación semántica realizada por diez funcionarios 
 
 _Nota._ Resultados de la evaluación semántica considerando únicamente los documentos cuyo procesamiento fue exitoso. La eliminación de los casos fallidos (14, 15 y 18) permite aislar el desempeño del modelo de lenguaje de las limitaciones asociadas a la captura y extracción óptica del texto original. La valoración promedio de 4,9 sobre 5 indica una percepción altamente favorable de los usuarios respecto a la exactitud, completitud, claridad, pertinencia de las palabras clave y utilidad institucional de los resúmenes generados por el artefacto.
 
+---
 ## 5.1. Casos de prueba y validación funcional
 
 Como parte del proceso de evaluación se definieron escenarios de prueba orientados a validar los principales componentes de la arquitectura.
