@@ -111,7 +111,7 @@ Una vez completado el procesamiento documental, la información generada por la 
 
 ---
 
-## 2.4. Escenarios operativos del flujo de integración
+## 2.3. Escenarios operativos del flujo de integración
 
 Durante las fases de validación se observaron diferentes comportamientos asociados al estado operativo del entorno de ejecución utilizado por el microservicio de integración.
 
