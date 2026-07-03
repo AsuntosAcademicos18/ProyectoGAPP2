@@ -95,15 +95,6 @@ La capa de interacción constituye el punto de entrada del artefacto y concentra
 
 La interfaz de captura fue desarrollada en Power Apps y actúa como la primera capa de control del flujo documental. Su propósito consiste en recibir los documentos proporcionados por los usuarios autorizados y verificar el cumplimiento de las condiciones mínimas necesarias para su procesamiento posterior.
 
-Las validaciones implementadas incluyen:
-
-- Restricción del procesamiento a un único documento por transacción.
-- Verificación del formato PDF como formato documental admitido.
-- Control de acceso mediante los mecanismos de autenticación del entorno institucional.
-- Validación preliminar de la información requerida para iniciar el flujo automatizado.
-
-Estas restricciones permiten reducir inconsistencias en los datos de entrada y mejorar la estabilidad del procesamiento posterior.
-
 ### Figura 2. 
 ### _Interfaz de captura y validación documental_
 ![Pantalla de captura y validación](docs/img/01-captura-validacion.png)
@@ -120,16 +111,6 @@ Una vez completado el procesamiento documental, la información generada por la 
 
 ---
 
-## 2.3. Integración entre Power Automate y servicios HTTP
-
-La interoperabilidad entre la infraestructura institucional y los componentes especializados de procesamiento se implementó mediante flujos automatizados de Power Automate y solicitudes HTTP estructuradas. La arquitectura resultante facilita la integración de servicios especializados sin requerir modificaciones sustanciales en los sistemas institucionales existentes.
-
-### Figura 4. 
-### _Comparación entre una integración entre un proceso con arquitectura desacoplada y servicios nativos_
-![Integración entre Power Automate y HTTP Request](docs/img/03-comparación-arquitecturas.png)
-
----
-
 ## 2.4. Escenarios operativos del flujo de integración
 
 Durante las fases de validación se observaron diferentes comportamientos asociados al estado operativo del entorno de ejecución utilizado por el microservicio de integración.
@@ -140,7 +121,7 @@ Estos registros deben interpretarse como ejemplos ilustrativos del comportamient
 
 La estrategia implementada para mitigar este comportamiento se describe posteriormente en la Sección 3.4 del presente anexo y en la subsección 4.5 del manuscrito.
 
-### Figura 5. 
+### Figura 4. 
 ### _Escenarios operativos del flujo de ejecución_
 ![Escenarios del flujo](docs/img/04-escenarios-flujos.png)
 
@@ -156,7 +137,7 @@ Antes de iniciar cualquier proceso de inferencia, el microservicio verifica que 
 
 Para ello se implementó la librería **Knor**, utilizada como mecanismo de validación de esquemas JSON en el punto de entrada del servicio.
 
-### Figura 6.
+### Figura 5.
 ### _Fragmento representativo de validación estructural_
 ```javascript
 const { k } = require('knor');
@@ -197,7 +178,7 @@ Estas instrucciones fueron implementadas mediante un *system prompt* que define:
 - Las restricciones de formato.
 - La estructura de la respuesta devuelta al sistema.
 
-### Figura 7.
+### Figura 6.
 ### _Fragmento representativo del prompt sistémico_
 ```javascript
 const construirPromptSistemico = () => {
@@ -231,7 +212,7 @@ La interacción se realiza mediante solicitudes HTTP estructuradas que incluyen:
 - Los parámetros de configuración del modelo.
 - Los mecanismos de control de formato de respuesta.
 
-### Figura 8.
+### Figura 7.
 ### _Fragmento representativo de integración_
 ```javascript
 const payload = {
@@ -265,7 +246,7 @@ Con el fin de mitigar este comportamiento, se implementó una estrategia de disp
 
 La lógica de funcionamiento consiste en realizar solicitudes de bajo impacto al entorno de ejecución a intervalos regulares para evitar estados prolongados de suspensión.
 
-### Figura 9. 
+### Figura 8. 
 ### _Ejemplo conceptual de configuración_
 ```text
 Nombre del Job:
@@ -287,7 +268,7 @@ Esta estrategia no participa directamente en el procesamiento documental ni modi
 
 El agrupamiento esquematizado de la información favorece la consulta de resultados históricos, especialmente a la hora de asignar filtros de búsqueda que permiten la extracción de datos puntuales, sin importar que tan antiguos sean y sin la necesidad de aludir a la memoria humana para llegar a ellos. Este panel de visualización ubica la sección de filtros por categorías especiales y tiempo que favorecen la búsqueda histórica y relevante de actas o metadatos (resúmenes y palabras clave) almacenados en los repositorios. El **recuadro 1** contiene los filtros que permiten la búsqueda histórica de la reunión con su respectiva acta, bien sea por el ID, algún texto específico en el resumen o las palabras clave, la dependencia, el equipo de trabajo o el nombre del funcionario responsable de la reunión. El **recuadro 2** muestra el listado de asistencia de los participantes a la reunión muestra el listado de asistencia a la reunión. El **recuadro 3** deja ver el resumen y las palabras clave extraídas generadas por el modelo Llama 3.3 a través del motor de inferencia Groq. El **recuadro 4** permite visualizar el documento original almacenado en el repositorio de datos en SharePoint de Microsoft 365.
 
-### Figura 10. 
+### Figura 9. 
 ### _Entorno de visualización y explotación analítica_
 ![Visualización de los datos para apoyo a la gestión documental](docs/img/05-visualización-BI.png)
 
