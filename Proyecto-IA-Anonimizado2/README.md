@@ -321,7 +321,7 @@ _Nota_: La tabla hace alusión al comportamiento operativo de los procesos 3 a 9
 ---
 ## 5.2. Evaluación semántica del modelo Llamma 3.3
 
-La evaluación semántica de los documentos permitió establecer la pertinencia del artefacto de cara a los usuarios que se verían beneficiados en su implementación de acuerdo con las características incluídas en las tablas 2 y 3, la cuales contienen los resultados ponderados de la evaluación de los 10 funcionarios, es decir, cada valor es una ponderación de 3 resultados.
+La evaluación semántica de los documentos permitió establecer la pertinencia del artefacto de cara a los usuarios que se verían beneficiados en su implementación de acuerdo con las características incluídas en las tablas 2 y 3, laS cuales contienen los resultados ponderados de la evaluación de los 10 funcionarios, es decir, cada valor es una ponderación de 3 resultados.
 
 ### Tabla 2. 
 ### _Evaluación semántica de resúmenes y palabras clave (muestra completa, N = 30)_
