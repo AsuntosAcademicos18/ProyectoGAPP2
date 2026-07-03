@@ -29,36 +29,61 @@ Cada una de estas secciones se encuentra vinculada explícitamente con los apart
 
 # 1. Arquitectura general del artefacto
 
-La solución propuesta se implementó mediante una arquitectura desacoplada orientada al procesamiento automatizado de documentos administrativos. El diseño distribuye las responsabilidades funcionales entre diferentes capas especializadas, permitiendo separar la captura documental, la integración, el procesamiento semántico y la explotación analítica de los resultados.
+La solución propuesta se implementó mediante una arquitectura desacoplada orientada al procesamiento automatizado de documentos administrativos. El diseño distribuye las responsabilidades funcionales entre diferentes capas especializadas, permitiendo separar la captura documental, la integración, el procesamiento semántico y la explotación analítica de los resultados. La arquitectura fue concebida para minimizar las dependencias entre componentes y facilitar la incorporación de servicios especializados sin modificar los entornos institucionales preexistentes. Esta propiedad permite mantener la gobernanza documental dentro del ecosistema corporativo, mientras que las capacidades de procesamiento semántico operan en capas independientes y desacopladas.
 
 ### Figura 1. 
 ### _Arquitectura general del artefacto_
 ```mermaid
 graph TD
 
-A[Power Apps]
---> B[Power Automate]
+    %% Arquitectura desacoplada de procesamiento documental
 
-B --> C[API REST]
+    subgraph L1["Capa 1. Captura y orquestación institucional (Microsoft 365)"]
+        A["Power Apps<br/>Captura documental y validaciones iniciales"]
+        B["Power Automate<br/>Orquestador central del flujo"]
+    end
 
-C --> D[Validación estructural]
-C --> E[Parametrización del modelo]
+    subgraph L2["Capa 2. Interfaz de interoperabilidad"]
+        C["Petición HTTP<br/>Transferencia de contenido documental y metadatos"]
+        J["Objeto JSON<br/>Contrato de intercambio estructurado"]
+    end
 
-D --> F[Servicio de inferencia]
-E --> F
+    subgraph L3["Capa 3. Middleware de integración y control lógico (Node.js)"]
+        D["Endpoint API REST<br/>Recepción de la solicitud"]
+        E["Validación estructural con Knor<br/>Control del esquema de datos entrantes"]
+        F["Inyección de prompt sistémico<br/>Preparación de la instrucción institucional"]
+    end
 
-F --> G[Generación de resumen y metadatos]
+    subgraph L4["Capa 4. Capa cognitiva de inferencia"]
+        G["Servicio externo de inferencia<br/>Procesamiento semántico"]
+        H["Modelo de lenguaje abierto<br/>Generación de resumen y metadatos"]
+    end
 
-G --> C
+    subgraph L5["Capa 5. Persistencia y explotación de resultados"]
+        I["SharePoint<br/>Actualización del registro documental"]
+        K["Repositorio institucional<br/>Documento original, resumen y palabras clave"]
+        L["Visualización y analítica<br/>Consulta, filtros y explotación posterior"]
+    end
 
-C --> B
+    A -->|"1. Carga de documento y metadatos"| B
+    B -->|"2. Activación del flujo bajo reglas de trazabilidad"| C
+    C -->|"3. Envío estructurado"| J
+    J -->|"4. Transferencia hacia servicio externo"| D
+    D -->|"5. Control lógico de entrada"| E
+    D -->|"6. Preparación semántica"| F
+    E -->|"Payload válido"| G
+    F -->|"Prompt institucional"| G
+    G -->|"7. Inferencia sobre el contenido documental"| H
+    H -->|"8. Respuesta JSON: resumen ejecutivo y palabras clave"| D
+    D -->|"9. Retorno de respuesta estructurada"| B
+    B -->|"10. Actualización automática del registro"| I
+    I -->|"11. Persistencia de resultados"| K
+    K -->|"12. Reutilización operativa"| L
 
-B --> H[SharePoint]
-
-H --> I[Visualización y analítica]
+    %% Principio de desacoplamiento
+    C -. "Contrato estable de intercambio" .- D
+    B -. "Gobernanza documental permanece en el entorno institucional" .- I
 ```
-
-La arquitectura fue concebida para minimizar las dependencias entre componentes y facilitar la incorporación de servicios especializados sin modificar los entornos institucionales preexistentes. Esta propiedad permite mantener la gobernanza documental dentro del ecosistema corporativo, mientras que las capacidades de procesamiento semántico operan en capas independientes y desacopladas.
 
 # 2. Evidencias de interacción y captura documental
 
