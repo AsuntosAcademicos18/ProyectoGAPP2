@@ -27,7 +27,7 @@ Cada una de estas secciones se encuentra vinculada explícitamente con los apart
 
 ---
 
-# 1. Arquitectura general del artefacto
+# 1. Arquitectura general del artefacto y flujos de datos
 
 La solución propuesta se implementó mediante una arquitectura desacoplada orientada al procesamiento automatizado de documentos administrativos. El diseño distribuye las responsabilidades funcionales entre diferentes capas especializadas, permitiendo separar la captura documental, la integración, el procesamiento semántico y la explotación analítica de los resultados. La arquitectura fue concebida para minimizar las dependencias entre componentes y facilitar la incorporación de servicios especializados sin modificar los entornos institucionales preexistentes. Esta propiedad permite mantener la gobernanza documental dentro del ecosistema corporativo, mientras que las capacidades de procesamiento semántico operan en capas independientes y desacopladas.
 
